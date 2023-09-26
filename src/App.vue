@@ -1,5 +1,12 @@
 <template>
-  <div>
-    Welcome to Hen
-  </div>
+  <router-view></router-view>
 </template>
+
+<script>
+  
+
+
+
+</script>
+
+
