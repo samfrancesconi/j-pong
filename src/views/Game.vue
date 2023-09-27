@@ -3,18 +3,25 @@
 </template>
 
 <script>
-  import {onMounted} from 'vue'
-  import game from '../games/pio/Game.js'
-
-
+  import { onMounted } from 'vue'
+  import { useRoute } from 'vue-router'
+  
   export default {
     setup : () => {
       const play = onMounted(()=>{
-        game();
+       
+       const route = useRoute();
+
+       const currentGame = route.params.id;
+
+       import(`../games/${currentGame}/Game.js`)
+        .then((game) => {
+            game.default(); 
+        });
       });
 
       return {
-        play
+        play,
       }
     }
   }
@@ -37,5 +44,8 @@
     left: 50%;
     transform: translate(-50%,-50%);
     border: solid 1px black;
+    background-image: url('/images/pio/lake.jpeg');
+    background-size: cover;
+    border-radius: 10px;
   }
 </style>
