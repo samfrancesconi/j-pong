@@ -1,10 +1,24 @@
 FROM node:18 as build
-WORKDIR /app
-COPY package*.json .
+
+WORKDIR /usr/src/app
+
+ARG ENVIRONMENT
+
+COPY . /usr/src/app
+
+COPY "./docker/.env-${ENVIRONMENT}" ./.env
+
 RUN npm install
-COPY . .
+
 RUN npm run build
 
+RUN rm -rf node_modules
+
+
 FROM nginx:1.19
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+
+EXPOSE 8080:8080
