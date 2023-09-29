@@ -15,7 +15,7 @@ export default class Prop {
         c.drawImage(this.image, this.position.x, this.position.y, this.dimension.width, this.dimension.height);
     }
     move(){
-        this.position.y += 0.5;
+        this.position.y += 1;
     }
 }
  

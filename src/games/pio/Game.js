@@ -15,7 +15,7 @@ export default function game() {
             //To add in a Class method but I need to work on the scope
             setInterval(()=>{
                 worms.addElement(new Prop('images/pio/worm.png', Math.floor(Math.random() * board.width), 0, 15, 15));
-            }, 15000);
+            }, 2000);
             
             
             //set a config file with the keyCode as a string and the call back you want to pass after the event has been triggered
@@ -29,9 +29,14 @@ export default function game() {
                 canvas.clearRect(0,0,board.width, board.height);
                 chick.render(canvas);
                 worms.elements.map(worm => {
-                    worm.render(canvas);
-                    //if (worms.elements[i].position.y + worms.elements[i].dimension.height >= )
-                    worm.move();
+                    if (worm.noRender) {
+                        return
+                    }
+                    else {
+                        worm.render(canvas);
+                        //if (worms.elements[i].position.y + worms.elements[i].dimension.height >= )
+                        worm.move();
+                    }
                 });
 
                 //collider
@@ -40,9 +45,15 @@ export default function game() {
                     let chickX = chick.position.x;
                     if (((chickX >= wormX && chickX <= wormX + worms.elements[i].dimension.width) && (worms.elements[i].position.y + worms.elements[i].dimension.height >= chick.position.y)) || ((wormX >= chickX && wormX <= chickX + chick.dimension.width) && (worms.elements[i].position.y + worms.elements[i].dimension.height >= chick.position.y))) {
                         //delete worms.elements[i];
-                        console.log('collided');
-                    }  
-                }
+                        worms.elements[i].noRender = true;
+                    };  
+                };
+
+                for (let i = 0; i < worms.elements.length; i++) {
+                    if(worms.elements[i].position.y + worms.elements[i].dimension.height >= board.height) {
+                        worms.elements[i].noRender = true;
+                    };
+                };
                 
                 requestAnimationFrame(animationEngine);
             };
