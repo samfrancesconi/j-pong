@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "vue": "^3.3.4",
+    "vue-flip": "^3.0.2",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
