@@ -1,11 +1,15 @@
 <template>
-    <h1 class="text-center">THE SANDBOX</h1>
-    <div class="flex flex-col items-center">
-        <img class="w-1/2 rounded-full" src="/images/sand.png">
-        <br>
-        <button class="bg-[#F7DEA4] p-2" @click="goTo('/pio')">Pio</button>
-        <button class="bg-[#F7DEA4] p-2" @click="goTo('/beer-pong')">Beer Pong</button>
-        <button class="bg-[#F7DEA4] p-2" @click="goTo('/four-cards')">Four Cards</button>
+    <div class="flex flex-col items-center bg-[url('/images/sand.png')] bg-contain">
+        <div class="text-white">
+           <h1 class="p-24 text-4xl"><strong>THE HEN PUDDLE</strong></h1> 
+        </div>    
+    </div>
+    <div class="flex justify-evenly mt-24 text-white">
+        <!-- <button class="bg-blue p-4" @click="goTo('/four-cards')">FOUR CARDS</button> -->
+        <!-- <button class="bg-blue p-4 w-[200px]" @click="goTo('/beer-pong')">BEER PONG</button> -->
+        <button class="bg-blue p-4 w-[200px]" @click="goTo('/pio')">PIO</button>
+        <button class="bg-blue p-4 w-[200px]">SHOOTER</button>
+        <button class="bg-blue p-4 w-[200px]">CUPHEAD LIKE</button>
     </div>
 </template>
 

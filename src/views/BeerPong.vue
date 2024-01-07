@@ -3,12 +3,12 @@
         class="overflow-x-hidden pt-16 px-8"
     >
         <div class="hidden">
-            <img :src="'/assets/images/pointer.png'" id="horizontal-cursor" />
-            <img :src="'/assets/images/cursor.png'" id="power-cursor" />
-            <img :src="'/assets/images/empty-glass.png'" id="empty-glass" />
-            <img :src="'/assets/images/base.png'" id="base" />
-            <img :src="'/assets/images/ball.png'" id="ball" />
-            <img :src="'/assets/images/dynamometer.svg'" id="dynamometer" />
+            <img :src="'/images/beer-pong/pointer.png'" id="horizontal-cursor" />
+            <img :src="'/images/beer-pong/cursor.png'" id="power-cursor" />
+            <img :src="'/images/beer-pong/empty-glass.png'" id="empty-glass" />
+            <img :src="'/images/beer-pong/base.png'" id="base" />
+            <img :src="'/images/beer-pong/ball.png'" id="ball" />
+            <img :src="'/images/beer-pong/dynamometer.png'" id="dynamometer" />
         </div>
 
         <div id="game-container">
@@ -89,7 +89,7 @@ const ball_throw = ref({
     power: null,
 })
 const audio = ref({
-    splash: new Audio('/assets/audio/splash.mp3'),
+    //splash: new Audio('/assets/audio/splash.mp3'),
 })
 
 onMounted(() => {
@@ -428,7 +428,7 @@ const calculateScore = () => {
             ball.value.x = glass.x - ball.value.radius
             ball.value.y = glass.y - ball.value.radius
 
-            audio.value.splash.play()
+            //audio.value.splash.play()
 
             score.value += glasses.value.matrix[glass.row][glass.cell]
         }

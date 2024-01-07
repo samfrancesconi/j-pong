@@ -8,7 +8,7 @@ export default class Controller {
                         event[1]();
                 });
             });
-            return
+            return 
         }
         console.warn('Please insert a config Object when creating a new Controller');
     }  
