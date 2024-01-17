@@ -1,7 +1,9 @@
 <template>
+    
     <div
         class="overflow-x-hidden pt-16 px-8"
     >
+
         <div class="hidden">
             <img :src="'/images/beer-pong/pointer.png'" id="horizontal-cursor" />
             <img :src="'/images/beer-pong/cursor.png'" id="power-cursor" />
@@ -14,7 +16,9 @@
         <div id="game-container">
             <canvas id="pong" class="mx-auto"></canvas>
         </div>
+        
     </div>
+
 </template>
 
 <script setup> 

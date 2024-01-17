@@ -1,5 +1,7 @@
 <template>
+
   <canvas id="game"></canvas>
+  
 </template>
 
 <script>
@@ -15,8 +17,8 @@
        const currentGame = route.params.id;
 
        import(`../games/${currentGame}/Game.js`)
-        .then((game) => {
-            game.default(); 
+        .then((Game) => {
+            new Game.default();
         });
       });
 

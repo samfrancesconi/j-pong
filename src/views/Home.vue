@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center bg-[url('/images/sand.png')] bg-contain">
         <div class="text-white">
-           <h1 class="p-24 text-4xl"><strong>THE HEN PUDDLE</strong></h1> 
+           <h1 class="p-24 text-4xl"><strong>THE HEN POND</strong></h1> 
         </div>    
     </div>
     <div class="flex justify-evenly mt-24 text-white">
