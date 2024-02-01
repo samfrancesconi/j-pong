@@ -21,28 +21,17 @@ export default class Player {
     }
 
     render(c) {
-        c.drawImage(this.image, this.sourcex , this.sourcey, 500, 500, this.position.x, this.position.y, this.dimension.width, this.dimension.height);
+        c.drawImage(this.image, this.sourcex , this.sourcey, 1850, 1800, this.position.x, this.position.y, this.dimension.width, this.dimension.height);
     }
 
     moveRight() {
+        this.sourcey = 1800;
         if(this.position.x < 300 - this.dimension.width) 
             this.position.x += 5 * this.speed;
     }
 
-    animateRight() {
-        if(this.sourcex < 3468) 
-        {
-            this.sourcex += 578;
-        }
-        else 
-        {
-            this.sourcex = 0;
-        } 
-    }
-
-    animateJump() {}
-
     moveLeft() {
+        this.sourcey = 0;
         if(this.position.x > 5)
             this.position.x -= 5 * this.speed;
     }

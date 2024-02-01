@@ -6,76 +6,81 @@ import Group from './Group.js';
 
 export default class Game {
     constructor() {
-        let board = document.getElementById('game');
-        console.log(board.height);
-        let canvas = board.getContext('2d');
+        this.board = document.getElementById('game');
+        this.canvas = this.board.getContext('2d');
+        this.sprite = new Player('images/pio/duckie.png', 0, 0, this.board.width / 2, this.board.height - 20, 30, 20);
+        this.worms = new Group();
+        this.controller = new Controller({
+            'ArrowRight' : this.sprite.moveRight.bind(this.sprite),
+            'ArrowLeft' : this.sprite.moveLeft.bind(this.sprite),
+        });
+        this.gameFrame = 0;
+        this.points = 0;
 
-        let gameFrame = 0;
-
-        let chick = new Player('images/pio/duck.png', 0, 0, board.width / 2, board.height - 20, 30, 20);
-
-        let worms = new Group();
-        
-        //To add in a Class method but I need to work on the scope
+        //props spawner put it in a function
         setInterval(()=>{
-            worms.addElement(new Prop('images/pio/worm.png', 0,Math.floor(Math.random() * board.width), 0, 15, 15));
+            this.worms.addElement(new Prop('images/pio/worm.png', 0,Math.floor(Math.random() * this.board.width), 0, 15, 15));
         }, 2000);
+       
+        this.canvas.font = "25px Comic Sans MS";
+
+        this.animationEngine()
+    }
+     
+
+    animationEngine() {           
+        this.canvas.clearRect(0,0,this.board.width, this.board.height);
+        this.sprite.render(this.canvas);
+        
+        this.canvas.strokeText(this.points ,this.board.width - 30, 25);
+        this.canvas.strokeStyle = "yellow";
         
         
-        //set a config file with the keyCode as a string and the call back you want to pass after the event has been triggered
-        new Controller({
-            'ArrowRight' : chick.moveRight.bind(chick),
-            'ArrowLeft' : chick.moveLeft.bind(chick)
+       
+        this.worms.elements.map(worm => {
+            if (worm.noRender) {
+                return
+            }
+            else {
+                worm.render(this.canvas);
+                //if (worms.elements[i].position.y + worms.elements[i].dimension.height >= )
+                worm.move();
+                if(this.gameFrame % 5 == 0){
+                    worm.animate();
+                }    
+            }
         });
 
-        
-        function animationEngine() {
-            canvas.clearRect(0,0,board.width, board.height);
-            //canvas.rotate(Math.PI/2);
-            chick.render(canvas);
-
-            if(gameFrame % 3 == 0)
-                chick.animateRight();
-            //chick.animateJump();
-            worms.elements.map(worm => {
-                if (worm.noRender) {
-                    return
+        //collider function to optimize//
+        //collider starts
+        for (let i = 0; i < this.worms.elements.length; i++) {
+            let wormX = this.worms.elements[i].position.x;
+            let chickX = this.sprite.position.x;
+            if (
+                ((chickX >= wormX && chickX <= wormX + this.worms.elements[i].dimension.width) && (this.worms.elements[i].position.y + this.worms.elements[i].dimension.height >= this.sprite.position.y)) 
+                || 
+                ((wormX >= chickX && wormX <= chickX + this.sprite.dimension.width) && (this.worms.elements[i].position.y + this.worms.elements[i].dimension.height >= this.sprite.position.y))
+                ) {
+                //delete this.worms.elements[i];
+                if(!this.worms.elements[i].noRender) {
+                    this.points += 1;
+                    new Audio('musics/peep.mp3').play();
                 }
-                else {
-                    worm.render(canvas);
-                    //if (worms.elements[i].position.y + worms.elements[i].dimension.height >= )
-                    worm.move();
-                    if(gameFrame % 5 == 0){
-                        worm.animate();
-                    }    
-                }
-            });
-
-            //collider
-            for (let i = 0; i < worms.elements.length; i++) {
-                let wormX = worms.elements[i].position.x;
-                let chickX = chick.position.x;
-                if (
-                    ((chickX >= wormX && chickX <= wormX + worms.elements[i].dimension.width) && (worms.elements[i].position.y + worms.elements[i].dimension.height >= chick.position.y)) 
-                    || 
-                    ((wormX >= chickX && wormX <= chickX + chick.dimension.width) && (worms.elements[i].position.y + worms.elements[i].dimension.height >= chick.position.y))
-                    ) {
-                    //delete worms.elements[i];
-                    worms.elements[i].noRender = true;
-                };  
-            };
-
-            for (let i = 0; i < worms.elements.length; i++) {
-                if(worms.elements[i].position.y + worms.elements[i].dimension.height >= board.height) {
-                    worms.elements[i].noRender = true;
-                };
-            };
-            
-            gameFrame++;
-
-            requestAnimationFrame(animationEngine);
+                    
+                this.worms.elements[i].noRender = true;
+            };  
         };
 
-        animationEngine();
-    }
+        for (let i = 0; i < this.worms.elements.length; i++) {
+            if(this.worms.elements[i].position.y + this.worms.elements[i].dimension.height >= this.board.height) {
+                this.worms.elements[i].noRender = true;
+            };
+        };
+        //collider ends
+        
+        this.gameFrame++;
+
+        window.requestAnimationFrame(this.animationEngine.bind(this));
+    };
+
 }
