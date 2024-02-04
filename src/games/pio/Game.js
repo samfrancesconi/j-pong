@@ -43,8 +43,8 @@ export default class Game {
             }
             else {
                 worm.render(this.canvas);
-                //if (worms.elements[i].position.y + worms.elements[i].dimension.height >= )
                 worm.move();
+                // I slow down the speed of the widget animation
                 if(this.gameFrame % 5 == 0){
                     worm.animate();
                 }    
