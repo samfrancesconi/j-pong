@@ -12,7 +12,7 @@
             <img :src="'/images/beer-pong/dynamometer.png'" id="dynamometer" />
         </div>
 
-        <div class="bg-[#2A8651] w-2/3 mx-auto border-solid border-4 border-white rounded-lg" id="game-container">
+        <div class="bg-[#2A8651] w-2/3 mx-auto border-solid border-4 border-white rounded-lg max-w-[800px] min-w-[500px]" id="game-container">
             <canvas id="pong" class="mx-auto"></canvas>
         </div>
         
