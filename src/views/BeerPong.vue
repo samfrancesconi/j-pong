@@ -1,9 +1,8 @@
 <template>
     
     <div
-        class="overflow-x-hidden pt-16 px-8"
+        class="overflow-x-hidden pt-16 px-8 bg-[url('/images/beer-pong/green-wood.jpg')] h-full"
     >
-
         <div class="hidden">
             <img :src="'/images/beer-pong/pointer.png'" id="horizontal-cursor" />
             <img :src="'/images/beer-pong/cursor.png'" id="power-cursor" />
@@ -13,7 +12,7 @@
             <img :src="'/images/beer-pong/dynamometer.png'" id="dynamometer" />
         </div>
 
-        <div id="game-container">
+        <div class="bg-[#2A8651] w-2/3 mx-auto border-solid border-4 border-white rounded-lg" id="game-container">
             <canvas id="pong" class="mx-auto"></canvas>
         </div>
         
@@ -93,7 +92,7 @@ const ball_throw = ref({
     power: null,
 })
 const audio = ref({
-    //splash: new Audio('/assets/audio/splash.mp3'),
+    splash: new Audio('/musics/splash.mp3'),
 })
 
 onMounted(() => {
@@ -213,7 +212,7 @@ const update = () => {
     if(state.value === 2) {
         moveBall()
     }
-        if(state.value === 3) {
+    if(state.value === 3) {
         clearInterval(loop.value)
     }
 }
@@ -319,7 +318,7 @@ const normalizePower = (y, top, bottom) => {
 }
 
 const game = () => {
-    // console.log('GAME!!');
+    //console.log('GAME!!');
     update();
     render();
 }
@@ -429,12 +428,12 @@ const calculateScore = () => {
             && ball.value.y < glass.bottom
         ) {
             // console.log('collisione!', glass, glasses.value.matrix[glass.row][glass.cell]);
-            ball.value.x = glass.x - ball.value.radius
-            ball.value.y = glass.y - ball.value.radius
+            ball.value.x = glass.x - ball.value.radius;
+            ball.value.y = glass.y - ball.value.radius;
 
-            //audio.value.splash.play()
+            audio.value.splash.play();
 
-            score.value += glasses.value.matrix[glass.row][glass.cell]
+            score.value += glasses.value.matrix[glass.row][glass.cell];
         }
     })
 }
