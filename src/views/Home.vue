@@ -6,6 +6,7 @@
     </div>
     <div class="flex justify-evenly mt-24 text-white">
         <button class="bg-blue p-4 w-[200px]" @click="goTo('/pio')">PLAY PEEP</button>
+        <button class="bg-blue p-4 w-[200px]" @click="goTo('/beer-pong')">PLAY BEER PONG</button>
     </div>
 </template>
 
