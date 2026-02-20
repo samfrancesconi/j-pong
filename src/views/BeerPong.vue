@@ -370,6 +370,10 @@ const manageTimer = () => {
 
 
             clearInterval(timer.value)
+
+            if(confirm(`Game Over! Your score: ${score.value}\n\nPlay again?`)) {
+                window.location.reload();
+            }
         }
     }, 1000)
 }
