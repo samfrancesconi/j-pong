@@ -1,10 +1,8 @@
 <template>
     <div class="overflow-x-hidden bg-[url('/images/beer-pong/green-wood.jpg')] h-full flex flex-col items-center pt-6 px-4">
 
-        <!-- HUD BAR -->
         <div class="flex items-center justify-between w-full max-w-[800px] min-w-[500px] mb-4 px-2">
-
-            <!-- TIME -->
+           
             <div class="flex flex-col items-center bg-black/50 border border-white/20 rounded-xl px-8 py-3 min-w-[130px]">
                 <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-yellow-200/70 font-mono mb-1">Time</span>
                 <span class="text-3xl font-black text-white font-mono tracking-wide leading-none">00:{{ leadingZero(time) }}</span>
