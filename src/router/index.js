@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const Home = () => import('../views/Home.vue');
-const Game = () => import('../views/Game.vue');
 const BeerPong = () => import('../views/BeerPong.vue')
 
 const router = createRouter({
@@ -14,10 +13,6 @@ const router = createRouter({
     {
       path: '/beer-pong',
       component: BeerPong
-    }, 
-    {
-      path: '/:id',
-      component: Game,
     }, 
   ]
 })

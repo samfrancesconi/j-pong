@@ -1,8 +1,22 @@
 <template>
-    
-    <div
-        class="overflow-x-hidden pt-16 px-8 bg-[url('/images/beer-pong/green-wood.jpg')] h-full"
-    >
+    <div class="overflow-x-hidden bg-[url('/images/beer-pong/green-wood.jpg')] h-full flex flex-col items-center pt-6 px-4">
+
+        <!-- HUD BAR -->
+        <div class="flex items-center justify-between w-full max-w-[800px] min-w-[500px] mb-4 px-2">
+
+            <!-- TIME -->
+            <div class="flex flex-col items-center bg-black/50 border border-white/20 rounded-xl px-8 py-3 min-w-[130px]">
+                <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-yellow-200/70 font-mono mb-1">Time</span>
+                <span class="text-3xl font-black text-white font-mono tracking-wide leading-none">00:{{ leadingZero(time) }}</span>
+            </div>
+
+            <div class="flex flex-col items-center bg-black/50 border border-white/20 rounded-xl px-8 py-3 min-w-[130px]">
+                <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-yellow-200/70 font-mono mb-1">Score</span>
+                <span class="text-3xl font-black text-white font-mono tracking-wide leading-none">{{ score }}</span>
+            </div>
+
+        </div>
+
         <div class="hidden">
             <img :src="'/images/beer-pong/pointer.png'" id="horizontal-cursor" />
             <img :src="'/images/beer-pong/cursor.png'" id="power-cursor" />
@@ -12,12 +26,11 @@
             <img :src="'/images/beer-pong/dynamometer.png'" id="dynamometer" />
         </div>
 
-        <div class="bg-[#2A8651] w-2/3 mx-auto border-solid border-4 border-white rounded-lg max-w-[800px] min-w-[500px]" id="game-container">
+        <div class="bg-[#2A8651] w-full max-w-[800px] min-w-[500px] border-4 border-white rounded-lg" id="game-container">
             <canvas id="pong" class="mx-auto"></canvas>
         </div>
-        
-    </div>
 
+    </div>
 </template>
 
 <script setup> 
@@ -357,7 +370,6 @@ const manageTimer = () => {
             canvas.value.removeEventListener('click', onClick)
             window.removeEventListener('keydown', onKeyDown)
 
-            saveRound()
 
             clearInterval(timer.value)
         }
@@ -438,21 +450,6 @@ const calculateScore = () => {
     })
 }
 
-const saveRound = () => {
-    axios.post(
-            '/api/rounds',
-            { user_id: player.value.id, score: score.value }
-        )
-        .then(response => {
-            store.commit('updatePlayer', {
-                total_score: response.data.data.total_score,
-                chart_position: response.data.data.chart_position,
-                coins: player.value.coins - 1,
-            })
-
-            store.dispatch('openModal', { name: 'game_completed_modal' })
-        })
-}
 
 const leadingZero = (number) => {
     return number >= 10 ? number : '0' + number
