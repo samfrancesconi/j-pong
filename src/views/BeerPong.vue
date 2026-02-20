@@ -1,4 +1,5 @@
 <template>
+
     <div class="overflow-x-hidden bg-[url('/images/beer-pong/green-wood.jpg')] h-full flex flex-col items-center pt-6 px-4">
 
         <div class="flex items-center justify-between w-full max-w-[800px] min-w-[500px] mb-4 px-2">
@@ -29,6 +30,7 @@
         </div>
 
     </div>
+    
 </template>
 
 <script setup> 
